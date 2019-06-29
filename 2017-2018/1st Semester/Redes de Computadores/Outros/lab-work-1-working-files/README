@@ -1,0 +1,12 @@
+
+Provisoriamente teste o seu trabalho na diretoria que contém a diretoria ftp17 da seguinte forma:
+
+Lance o servidor assim:
+ 
+ java -Xbootclasspath/p:./ftp17/socket.jar   ftp17/Ftp17Server
+
+Lance o seu cliente assim:
+
+ java -Xbootclasspath/p:./ftp17/socket.jar ftp17/Ftp17Client file11000 localhost
+
+
