@@ -1,0 +1,98 @@
+id,fault
+0,Eurasian:North American
+1,North American:Pacific
+2,Pacific:Juan de Fuca
+3,North America:Juan de Fuca
+4,Eurasian:African
+5,Eurasian:Arabian
+6,North American:African
+7,African:Arabian
+8,North American:Philippine
+9,Eurasian:Philippine
+10,Pacific:Philippine
+11,Indian:Arabian
+12,Pacific:Cocos
+13,Philippine:Sunda
+14,North American:Caribbean
+15,North American:Cocos
+16,African:South American
+17,African:Indian
+18,South American:Caribbean
+19,Cocos:Caribbean
+20,Nazca:Cocos
+21,Pacific:Nazca
+22,Pacific:Australia
+23,African:Australian
+24,South American:Nazca
+25,Australia:Pacific
+26,Pacific:Australian
+27,Nazca
+28,African:Antarctic
+29,Australian:Antarctic
+30,Antarctic:Nazca
+31,Pacific:Antarctic
+32,Antarctica:South American
+33,South America:Scotia
+34,Scotia:South American
+35,South American:Antarctic
+36,Antarctica:Scotia
+37,Antarctic:Scotia
+38,Solomon Sea Microplate:Southern Bismarck Microplate
+39,Australian:Sunda
+40,Africa:Eurasia
+41,Eurasian:Indian
+42,Eurasia
+43,Eurasia:Anatolia Block
+44,Tamayo Fracture Zone
+45,N.A.-S.A. Plate Boundary
+46,East Lau Spreading Center
+47,Oceanic Convergent Boundary
+48,Ninety East Sumatra
+49,North Fiji Basin Spreading Center
+50,Timor Trough
+51,Mapia Ridge
+52,Okinawa Trough
+53,Dauki Thrust
+54,Sagaing Fault
+55,Red River Fault
+56,Xiangshuihe - Xiaojiang Fault System
+57,Longmen Shan Thrust Belt
+58,Haiyuan
+59,Altyn Tagh
+60,Karakoram
+61,Talas Fergana
+62,Main Pamir Thrust
+63,Chaman
+64,Indo-Tsangpo Suture
+65,Kunlun Fault
+66,Fonualei Rift
+67,Central Lau Spreading Center
+68,Northwest Lau Spreading Center
+69,Futuna Spreading Center
+70,Continental Collisional Boundary
+71,Morrocoy Fault Zone
+72,Southern Panama Fault Zone
+73,East Andean Fault
+74,Oriente Fault
+75,Shackleton Fracture Zone
+76,South Shetland Trench
+77,North Anatolian Fault
+78,East African Rift System
+79,Stanovoy Fault System
+80,Baikal Rift
+81,Mariana Trough
+82,Sumatra Fault System
+83,Matano Fault
+84,Tolo Thrust
+85,Banda Ridges
+86,Manokwari Trough
+87,New Guinea Highlands Fold and Thrust Belt
+88,Woodlark Basin Spreading System
+89,Manus Trough
+90,Kilinailau Trench
+91,Trobriand Trough
+92,Hazel Holmes Extensional Zone
+93,Fiji Fracture Zone
+94,Alps
+95,Dinaric Alps
+96,East Anatolian Fault
