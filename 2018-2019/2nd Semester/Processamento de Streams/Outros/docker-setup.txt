@@ -1,0 +1,110 @@
+
+----MYSQL----
+
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pstr#2019 -d mysql
+
+docker exec -it mysql bash
+
+mysql -p    # poderá demorar algum tempo
+
+
+create database SweetFactoryDB;
+
+CREATE USER 'pstr-user'@'%' IDENTIFIED BY 'pstr#2019';
+
+# tive alguns problemas com versões do jdbc e mysql e isto resolveu
+ALTER USER 'pstr-user'@'%' IDENTIFIED WITH mysql_native_password BY 'pstr#2019';  
+
+GRANT ALL ON SweetFactoryDB.* TO 'pstr-user'@'%';
+
+FLUSH PRIVILEGES;
+
+CREATE USER 'pstr-user'@'%' IDENTIFIED BY 'pstr#2019';
+
+GRANT ALL ON SweetFactoryDB.* TO 'pstr-user'@'%';
+
+FLUSH PRIVILEGES;
+
+
+#Tentar ligar com workbench tanto em root como pstr-user
+
+
+
+----WSO2----
+
+docker run -it \
+-p 9390:9390 \
+-p 9743:9743 \
+-p 8280:8280 \
+--name wso2sp-editor \
+ andrelopes/my-first-repo:wso2sp-editor-original
+
+
+
+----EXEMPLOS
+
+
+--Exemplo 1--
+
+@App:name('ShipmentHistoryApp')
+  
+@source(type = 'http', @map(type = 'json'))
+define stream RawMaterialStream(name string, supplier string, amount double);
+  
+@primaryKey('name')
+@index('supplier')
+@store(type='rdbms', jdbc.url="jdbc:mysql://172.17.0.2:3306/SweetFactoryDB?useSSL=false", username="pstr-user", password="pstr#2019" , jdbc.driver.name="com.mysql.jdbc.Driver")
+define table ShipmentDetails(name string, supplier string, amount double);
+  
+from RawMaterialStream
+select name, supplier, amount
+update or insert into ShipmentDetails
+on ShipmentDetails.name == name;
+
+
+
+
+--Exemplo 2--
+
+
+
+
+@App:name('TotalProductionHistoryApp')
+@source(type = 'http', @map(type = 'json'))
+define stream SweetProductionStream(name string, amount long);
+@source(type = 'http', @map(type = 'json'))
+define stream GetTotalSweetProductionStream (name string, duration string, interval string);
+ 
+ 
+@sink(type='log', prefix='Hourly Production Stream')
+define stream HourlyProductionStream(AGG_TIMESTAMP long, name string, totalAmount long);
+ 
+@index('name')
+@store(type='rdbms', jdbc.url="jdbc:mysql://172.17.0.2:3306/SweetFactoryDB?useSSL=false", username="pstr-user", password="pstr#2019" , jdbc.driver.name="com.mysql.jdbc.Driver")
+define aggregation SweetProductionAggregation
+from SweetProductionStream
+select name, sum(amount) as totalAmount
+group by name
+aggregate every minute ... year;
+from GetTotalSweetProductionStream as b join SweetProductionAggregation as a
+  on a.name == b.name
+  within b.duration
+  per b.interval
+select a.AGG_TIMESTAMP, a.name, a.totalAmount
+insert into HourlyProductionStream;
+
+
+
+
+# Correr localmente e verificar efeitos no mysql
+
+curl -X POST \
+  http://localhost:8280/ShipmentHistoryApp/RawMaterialStream \
+  -H 'content-type: application/json' \
+  -d '{
+  "event": {
+    "name": "Sugar",
+    "supplier": "Indigo6",
+    "amount": 272.0
+  }
+}'

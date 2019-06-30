@@ -1,0 +1,26 @@
+
+docker pull andrelopes/my-first-repo:wso2-kafka
+
+docker run -it -p 9390:9390 -p 9743:9743 -p 8280:8280 -p 9092:9092 --name wso2-kafka andrelopes/my-first-repo:wso2-kafka
+
+
+
+docker exec -it wso2-kafka bash # noutra consola
+
+# Na pasta do kafka
+
+sh bin/zookeeper-server-start.sh config/zookeeper.properties
+
+docker exec -it wso2-kafka bash # noutra consola
+
+sh bin/kafka-server-start.sh config/server.properties
+
+
+
+docker exec -it wso2-kafka bash # noutra consola
+
+# Na pasta pstr
+
+java -jar Pstr2018-Kafka-1-SNAPSHOT-jar-with-dependencies.jar 60
+
+

@@ -1,0 +1,32 @@
+Basedo em: https://github.com/wso2/product-sp/blob/master/modules/samples/artifacts/HelloKafka/HelloKafka.siddhi
+
+
+docker run -it -p 9390:9390 -p 9743:9743 -p 8280:8280 -p 9092:9092 --name wso2-kafka andrelopes/my-first-repo:wso2-kafka
+
+
+
+docker exec -it wso2-kafka bash # noutra consola
+
+# Na pasta do kafka
+
+sh bin/zookeeper-server-start.sh config/zookeeper.properties
+
+docker exec -it wso2-kafka bash # noutra consola
+sh bin/kafka-server-start.sh config/server.properties
+
+
+
+# Lançar consumer 
+
+docker exec -it wso2-kafka bash # noutra consola
+cd wso2sp-4.3.0/samples/sample-clients/kafka-consumer
+ant -DtopicList=kafka_result_topic -Dtype=xml -DpartitionList=0
+
+# Lançar producer
+docker exec -it wso2-kafka bash # noutra consola
+cd wso2sp-4.3.0/samples/sample-clients/kafka-producer
+ant -DtopicName=kafka_topic -DfilePath=../../artifacts/HelloKafka/kafka_sample.txt
+
+
+# O producer vai buscar dados a este ficheiro - kafka_sample.txt.
+# Para editá-lo: vim kafka_sample.txt
